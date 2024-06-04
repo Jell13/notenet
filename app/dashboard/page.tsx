@@ -1,4 +1,5 @@
 import { UserButton } from '@clerk/nextjs'
+import CreateNoteDialog from '@components/CreateNoteDialog'
 
 import { Button } from '@components/ui/button'
 import { Separator } from '@components/ui/separator'
@@ -36,7 +37,7 @@ const Dashboard = (props: Props) => {
             </div>
 
             <div className='grid sm:grid-cols-3 md:grid-cols-5 grid-cols-1 gap-3'>
-                {/* <CreateNoteDialog/> */}
+                <CreateNoteDialog/>
             </div>
 
         </div>
