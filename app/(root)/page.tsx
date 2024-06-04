@@ -1,11 +1,15 @@
 "use client"
 
+import { SignInButton } from "@clerk/clerk-react";
 import TypewriterText from "@components/TypewriterText";
 import { Button } from "@components/ui/button";
+import { useConvexAuth } from "convex/react";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 
 export default function Home() {
+
+  const{isAuthenticated, isLoading} = useConvexAuth()
 
   return (
     <div className="w-screen h-screen grainy">
@@ -14,12 +18,18 @@ export default function Home() {
           Enhance your <span className="text-green-600">note taking</span> experience
         </h1>
         <h2 className="font-semibold mt-3 text-3xl"><TypewriterText/></h2>
-        <Link className="mt-3" href={"/dashboard"}>
-          <Button className="bg-green-600">
-            Get started
+        
+          {!isAuthenticated ?
+          <Button className="bg-green-600 mt-3">
+            <SignInButton/>
             <ArrowRight className="ml-1"/>
-          </Button>
-        </Link>
+          </Button> : 
+          <Link className="mt-3" href="/dashboard">
+            <Button className="bg-green-600">
+              Get Started
+            </Button>
+          </Link>
+          }
       </div>
     </div>
   );

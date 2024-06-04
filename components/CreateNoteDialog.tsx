@@ -1,10 +1,26 @@
+"use client"
+
 import React from 'react'
-import { Dialog, DialogContent, DialogHeader, DialogTrigger } from './ui/dialog'
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from './ui/dialog'
 import { Plus } from 'lucide-react'
+import { Input } from './ui/input'
+import { Button } from './ui/button'
+import { useMutation } from 'convex/react'
+import { api } from '@convex/_generated/api'
 
 type Props = {}
 
 const CreateNoteDialog = (props: Props) => {
+
+  const createNotebook = useMutation(api.documents.createNotebook)
+
+  const[input, setInput] = React.useState("")
+  const handleSubmit = (e :React.FormEvent) => {
+    e.preventDefault()
+    createNotebook({
+      title: input
+    })
+  }
   return (
     <Dialog>
         <DialogTrigger>
@@ -15,8 +31,24 @@ const CreateNoteDialog = (props: Props) => {
         </DialogTrigger>
         <DialogContent>
             <DialogHeader>
-                
+                <DialogTitle>
+                  New Note Book
+                </DialogTitle>
+                <DialogDescription>
+                  You can create a new note by clicking the button below
+                </DialogDescription>
             </DialogHeader>
+            <form onSubmit={handleSubmit}>
+              <Input placeholder='Name...' value={input} onChange={(e) => setInput(e.target.value)}/>
+              <div className='mt-4 flex gap-2'>
+                <Button type='reset' variant={"secondary"}>
+                  Cancel
+                </Button>
+                <Button type='submit' className='bg-green-600'>
+                  Create
+                </Button>
+              </div>
+            </form>
         </DialogContent>
     </Dialog>
   )

@@ -1,7 +1,7 @@
 export default {
     providers: [
       {
-        domain: process.env.CLERK_JWT_ISSUER,
+        domain: "https://sunny-mammal-42.clerk.accounts.dev",
         applicationID: "convex",
       },
     ]

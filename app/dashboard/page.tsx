@@ -1,8 +1,13 @@
-import { UserButton } from '@clerk/nextjs'
+"use client"
+
+import { UserButton, useUser } from '@clerk/nextjs'
+import { auth, getAuth } from '@clerk/nextjs/server'
 import CreateNoteDialog from '@components/CreateNoteDialog'
 
 import { Button } from '@components/ui/button'
 import { Separator } from '@components/ui/separator'
+import { api } from '@convex/_generated/api'
+import { useConvexAuth, useQuery } from 'convex/react'
 import { ArrowLeft } from 'lucide-react'
 import Link from 'next/link'
 import React from 'react'
@@ -10,6 +15,8 @@ import React from 'react'
 type Props = {}
 
 const Dashboard = (props: Props) => {
+
+    const notes = useQuery(api.documents.getNoteBook)
   return (
     <div className='min-h-screen grainy'>
         <div className='max-w-7xl mx-auto p-10'>
@@ -32,14 +39,26 @@ const Dashboard = (props: Props) => {
             <div className='h-8'/>
             <Separator/>
             <div className='h-8'/>
-            <div className='text-center'>
-                <h2 className='text-xl text-gray-500'>You have no notes yet</h2>
-            </div>
 
             <div className='grid sm:grid-cols-3 md:grid-cols-5 grid-cols-1 gap-3'>
                 <CreateNoteDialog/>
+                {notes?.length === 0 ? 
+                    <div className='text-center flex items-center mx-auto'>
+                        <h2 className='text-xl text-gray-500'>You have no notes yet</h2>
+                    </div> : 
+                    notes?.map(note => {
+                        return (
+                            <Link className='' href={`/notes/${note._id}`}>
+                                <div className='border md:w-[230px] md:h-[200px] h-[200px] justify-center items-center border-stone-300 rounded-lg overflow-hidden flex flex-col hover:shadow-xl lg:flex-row transition hover:-translate-y-1'>
+                                    <div className=''>
+                                        {note.title}
+                                    </div>
+                                </div>
+                            </Link>
+                        )
+                    })
+                }
             </div>
-
         </div>
     </div>
   )
