@@ -22,7 +22,7 @@ export default function Home() {
 
 
           {isLoading && 
-          <Spinner/>}
+          <Spinner size={"lg"}/>}
           {!isAuthenticated && isLoading }
           {!isAuthenticated && !isLoading &&
           <Button className="bg-green-600 mt-3">

@@ -26,7 +26,7 @@ const NotebookPage = ({params: {noteId}}: Props) => {
               Back
             </Button>
           </Link>
-          <h3 className='text-xl ml-4'>{user?.fullName}</h3>
+          <h3 className='text-xl ml-4 font-semibold'>{user?.fullName}</h3>
         </div>
       </div>
     </div>
