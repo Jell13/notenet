@@ -1,6 +1,7 @@
 "use client"
 
-import { useConvexAuth } from 'convex/react'
+import Loader from '@components/Loader'
+import { AuthLoading, Authenticated, Unauthenticated, useConvexAuth } from 'convex/react'
 import { redirect } from 'next/navigation'
 import React from 'react'
 
@@ -10,12 +11,14 @@ const layout = ({children}:{children : React.ReactNode}) => {
 
     const {isAuthenticated, isLoading} = useConvexAuth()
 
-    if(!isAuthenticated){
-        return redirect("/")
-    }
   return (
     <div>
+      <AuthLoading>
+        <Loader/>
+      </AuthLoading>
+      <Authenticated>
         {children}
+      </Authenticated>
     </div>
   )
 }
