@@ -2,19 +2,25 @@
 
 import { useUser } from '@clerk/clerk-react'
 import { Button } from '@components/ui/button'
+import { api } from '@convex/_generated/api'
+import { Id } from '@convex/_generated/dataModel'
+import { useQuery } from 'convex/react'
 import { ArrowLeft } from 'lucide-react'
 import Link from 'next/link'
 import React from 'react'
 
 type Props = {
   params: {
-    noteId: string
+    noteId: Id<"documents">
   }
 }
 
 const NotebookPage = ({params: {noteId}}: Props) => {
 
   const{user} = useUser()
+  const getInfo = useQuery(api.documents.getNoteInfo,{
+    id: noteId
+  })
 
   return (
     <div className='min-h-screen p-8 grainy'>
@@ -27,6 +33,7 @@ const NotebookPage = ({params: {noteId}}: Props) => {
             </Button>
           </Link>
           <h3 className='text-xl ml-4 font-semibold'>{user?.fullName}</h3>
+          <h4 className='ml-1 font-semibold text-gray-500'>/{getInfo?.title}</h4>
         </div>
       </div>
     </div>

@@ -23,7 +23,6 @@ const CreateNoteDialog = (props: Props) => {
     })
 
     toast.promise(create,{
-      loading: "Creating a notebook",
       success: "New note created!",
       error: "Failed to create a new note."
     })

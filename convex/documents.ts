@@ -35,5 +35,15 @@ export const createNotebook = mutation({
     }
 })
 
+export const getNoteInfo = query({
+    args:{
+        id: v.id("documents")
+    },
+    handler: async (ctx, args) => {
+        const info = await ctx.db.get(args.id)
+        return info
+    }
+})
+
 
 
