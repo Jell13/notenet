@@ -1,8 +1,7 @@
 "use client"
 
 import Loader from '@components/Loader'
-import { AuthLoading, Authenticated, Unauthenticated, useConvexAuth } from 'convex/react'
-import { redirect } from 'next/navigation'
+import { AuthLoading, Authenticated, useConvexAuth } from 'convex/react'
 import React from 'react'
 
 type Props = {}
