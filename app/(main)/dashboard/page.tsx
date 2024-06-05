@@ -47,10 +47,19 @@ const Dashboard = (props: Props) => {
             <div className='grid sm:grid-cols-3 md:grid-cols-5 grid-cols-1 gap-3'>
                 <CreateNoteDialog/>
                 {noteLength === 0 ? (
-                    <div>
-                        You have no notes
+                    <div className='text-center flex justify-center'>
+                        <h2 className='text-xl text-gray-500'>You have no notes yet</h2>
                     </div>
-                ): null}
+                ): (notes?.map((note) => {
+                    return(
+                        <Link href={`/notes/${note._id}`}>
+                            <div className='border-2 flex justify-center md:h-[200px] items-center transition rounded-lg hover:-translate-y-2 hover:shadow-lg'>
+                                {note.title}
+                            </div>
+                        </Link>
+                        
+                    )
+                }))}
             </div>
             
         </div>

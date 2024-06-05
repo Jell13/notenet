@@ -8,8 +8,10 @@ type Props = {
 
 const NotebookPage = ({params: {noteId}}: Props) => {
   return (
-    <div className='h-screen w-screen'>
-
+    <div className='min-h-screen p-8 grainy'>
+      <div className='max-w-4xl mx-auto'>
+        {noteId}
+      </div>
     </div>
   )
 }
