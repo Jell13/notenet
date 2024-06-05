@@ -7,6 +7,7 @@ import { Input } from './ui/input'
 import { Button } from './ui/button'
 import { useMutation } from 'convex/react'
 import { api } from '@convex/_generated/api'
+import { toast } from 'sonner'
 
 type Props = {}
 
@@ -17,8 +18,14 @@ const CreateNoteDialog = (props: Props) => {
   const[input, setInput] = React.useState("")
   const handleSubmit = (e :React.FormEvent) => {
     e.preventDefault()
-    createNotebook({
+    const create = createNotebook({
       title: input
+    })
+
+    toast.promise(create,{
+      loading: "Creating a notebook",
+      success: "New note created!",
+      error: "Failed to create a new note."
     })
   }
   return (
