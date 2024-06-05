@@ -16,20 +16,6 @@ export const getNoteBook = query({
     }
 })
 
-export const getLength = query({
-    handler: async (ctx) => {
-        
-        const identity = await ctx.auth.getUserIdentity()
-        if(!identity){
-            throw new Error("Unauthorized")
-        }
-
-        const notes = await ctx.db.query("documents").withIndex("by_userId", q => q.eq("userId",identity.subject)).collect()
-        
-        return notes.length
-    }
-})
-
 export const createNotebook = mutation({
     args:{
         title: v.string()
@@ -48,4 +34,6 @@ export const createNotebook = mutation({
         })
     }
 })
+
+
 

@@ -18,7 +18,6 @@ const Dashboard = (props: Props) => {
 
     const {isAuthenticated} = useConvexAuth() 
 
-    const noteLength = useQuery(api.documents.getLength)
     const notes = useQuery(api.documents.getNoteBook)
 
   return (
@@ -46,7 +45,7 @@ const Dashboard = (props: Props) => {
 
             <div className='grid sm:grid-cols-3 md:grid-cols-5 grid-cols-1 gap-3'>
                 <CreateNoteDialog/>
-                {noteLength === 0 ? (
+                {notes?.length === 0 ? (
                     <div className='text-center flex justify-center'>
                         <h2 className='text-xl text-gray-500'>You have no notes yet</h2>
                     </div>
