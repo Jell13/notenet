@@ -23,7 +23,7 @@ const NotebookPage = ({params: {noteId}}: Props) => {
 
   const{user} = useUser()
   const router = useRouter()
-  const getInfo = useQuery(api.documents.getNoteInfo,{
+  const getNote = useQuery(api.documents.getNoteInfo,{
     id: noteId
   })
 
@@ -51,7 +51,7 @@ const NotebookPage = ({params: {noteId}}: Props) => {
             </Button>
           </Link>
           <h3 className='text-xl ml-4 font-semibold'>{user?.fullName}</h3>
-          <h4 className='ml-1 font-semibold text-gray-500'>/{getInfo?.title}</h4>
+          <h4 className='ml-1 font-semibold text-gray-500'>/{getNote?.title}</h4>
           <div className='ml-auto'>
             <Dialog>
               <DialogTrigger>
@@ -77,8 +77,10 @@ const NotebookPage = ({params: {noteId}}: Props) => {
             </Dialog>
           </div>
         </div>
-
-        <Editor/>
+        <div className='h-4'/>
+        <div className='border-stone-200 shadow-xl border rounded-lg px-16 py-8 w-full'>
+          <Editor/>
+        </div>
       </div>
     </div>
   )
