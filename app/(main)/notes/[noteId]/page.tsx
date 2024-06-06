@@ -2,12 +2,15 @@
 
 import { useUser } from '@clerk/clerk-react'
 import { Button } from '@components/ui/button'
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@components/ui/dialog'
 import { api } from '@convex/_generated/api'
 import { Id } from '@convex/_generated/dataModel'
-import { useQuery } from 'convex/react'
+import { useMutation, useQuery } from 'convex/react'
 import { ArrowLeft } from 'lucide-react'
 import Link from 'next/link'
+import { redirect, useRouter } from 'next/navigation'
 import React from 'react'
+import { toast } from 'sonner'
 
 type Props = {
   params: {
@@ -18,9 +21,23 @@ type Props = {
 const NotebookPage = ({params: {noteId}}: Props) => {
 
   const{user} = useUser()
+  const router = useRouter()
   const getInfo = useQuery(api.documents.getNoteInfo,{
     id: noteId
   })
+
+  const deleteNote = useMutation(api.documents.deleteNote)
+
+  const handleClick = () => {
+
+    const deletion = deleteNote({id: noteId})
+    router.push("/dashboard")
+    toast.promise(deletion, {
+      loading: "Deleting Note",
+      success: "Note Deleted",
+      error: "Note was not deleted"
+    })
+  }
 
   return (
     <div className='min-h-screen p-8 grainy'>
@@ -34,6 +51,30 @@ const NotebookPage = ({params: {noteId}}: Props) => {
           </Link>
           <h3 className='text-xl ml-4 font-semibold'>{user?.fullName}</h3>
           <h4 className='ml-1 font-semibold text-gray-500'>/{getInfo?.title}</h4>
+          <div className='ml-auto'>
+            <Dialog>
+              <DialogTrigger>
+                <Button className='bg-red-500'>
+                  Delete
+                </Button>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>
+                    Are you sure you want to delete this note?
+                  </DialogTitle>
+                  <DialogDescription>
+                    This action can not be reverted and all the content of this note will be erased
+                  </DialogDescription>
+                </DialogHeader>
+                <DialogFooter>
+                  <Button onClick={handleClick} className='bg-red-500'>
+                    Delete
+                  </Button>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
+          </div>
         </div>
       </div>
     </div>

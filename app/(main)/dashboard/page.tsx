@@ -19,6 +19,7 @@ const Dashboard = (props: Props) => {
     const {isAuthenticated} = useConvexAuth() 
 
     const notes = useQuery(api.documents.getNoteBook)
+    const notesLenght = useQuery(api.documents.getNoteLength)
 
   return (
     <div className='min-h-screen grainy'>
@@ -42,14 +43,15 @@ const Dashboard = (props: Props) => {
             <div className='h-8'/>
             <Separator/>
             <div className='h-8'/>
+            {notesLenght === 0 && (
+                <div className='text-center flex justify-center items-center'>
+                    <h2 className='text-xl text-gray-500'>You have no notes yet</h2>
+                </div>
+            )}
 
             <div className='grid sm:grid-cols-3 md:grid-cols-5 grid-cols-1 gap-3'>
                 <CreateNoteDialog/>
-                {notes?.length === 0 ? (
-                    <div className='text-center flex justify-center'>
-                        <h2 className='text-xl text-gray-500'>You have no notes yet</h2>
-                    </div>
-                ): (notes?.map((note, index) => {
+                {notesLenght !== 0 && (notes?.map((note, index) => {
                     return(
                         <Link key={index} href={`/notes/${note._id}`}>
                             <div className='border-2 flex justify-center md:h-[200px] items-center transition rounded-lg hover:-translate-y-2 hover:shadow-lg'>
