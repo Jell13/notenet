@@ -54,7 +54,7 @@ const Dashboard = (props: Props) => {
                 {notesLenght !== 0 && (notes?.map((note, index) => {
                     return(
                         <Link key={index} href={`/notes/${note._id}`}>
-                            <div className='border-2 flex justify-center md:h-[200px] items-center transition rounded-lg hover:-translate-y-2 hover:shadow-lg'>
+                            <div className='border-2 flex justify-center h-[200px] items-center transition rounded-lg hover:-translate-y-2 hover:shadow-lg'>
                                 {note.title}
                             </div>
                         </Link>

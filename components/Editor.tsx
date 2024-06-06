@@ -1,14 +1,24 @@
-"use client"
+'use client'
 
+import { useEditor, EditorContent } from '@tiptap/react'
+import StarterKit from '@tiptap/starter-kit'
 import React from 'react'
 
-type Props = {}
+interface EditorProps{
+  onChange: (value: string) => void;
+  initialContent?: string;
+}
 
-const Editor = (props: Props) => {
+const Editor = ({onChange, initialContent}: EditorProps) => {
+
+  const editor = useEditor({
+    extensions: [
+      StarterKit
+    ],
+    content: initialContent ? initialContent : '<p>Hello World! 🌎️</p>'
+  })
   return (
-    <div>
-
-    </div>
+    <EditorContent onChange={() => onChange} editor={editor} />
   )
 }
 
