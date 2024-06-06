@@ -1,6 +1,7 @@
 "use client"
 
 import { useUser } from '@clerk/clerk-react'
+import Editor from '@components/Editor'
 import { Button } from '@components/ui/button'
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@components/ui/dialog'
 import { api } from '@convex/_generated/api'
@@ -76,6 +77,8 @@ const NotebookPage = ({params: {noteId}}: Props) => {
             </Dialog>
           </div>
         </div>
+
+        <Editor/>
       </div>
     </div>
   )
