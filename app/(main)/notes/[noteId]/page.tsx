@@ -77,7 +77,7 @@ const NotebookPage = ({params: {noteId}}: Props) => {
         </div>
         <div className='h-4'/>
         <div className='border-stone-200 shadow-xl border rounded-lg px-16 py-8 w-full'>
-          <Editor id={noteId}/>
+          <Editor/>
         </div>
       </div>
     </div>
