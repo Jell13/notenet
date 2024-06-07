@@ -26,9 +26,6 @@ const Editor = ({id: noteId}: EditorProps) => {
       console.log("it works")
     }
   }, [getContent])
-  // if(getContent){
-  //   setContent(getContent)
-  // }
 
   const editor = useEditor({
     extensions: [
@@ -36,7 +33,7 @@ const Editor = ({id: noteId}: EditorProps) => {
     ],
     content: text,
     onUpdate: ({editor}) => {
-      const contentString = editor.getHTML()
+      const contentString = editor.getText()
       setText(contentString)
       updateNote({
         id: noteId, content: contentString
