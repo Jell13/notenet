@@ -29,6 +29,32 @@ export const getNoteLength = query({
     }
 })
 
+export const getNoteInfo = query({
+    args:{
+        id: v.id("documents")
+    },
+    handler: async (ctx, args) => {
+        const info = await ctx.db.get(args.id)
+        if(!info){
+            throw new Error("No document exist")
+        }
+        return info
+    }
+})
+
+export const getNoteContent = query({
+    args:{
+        id: v.id("documents")
+    },
+    handler: async (ctx, args) => {
+        const note = await ctx.db.get(args.id)
+        if(!note){
+            throw new Error("Error in getting content")
+        }
+        return note.content
+    }
+})
+
 export const createNotebook = mutation({
     args:{
         title: v.string()
@@ -48,16 +74,6 @@ export const createNotebook = mutation({
     }
 })
 
-export const getNoteInfo = query({
-    args:{
-        id: v.id("documents")
-    },
-    handler: async (ctx, args) => {
-        const info = await ctx.db.get(args.id)
-        return info
-    }
-})
-
 export const deleteNote = mutation({
     args:{
         id: v.id("documents")
@@ -72,5 +88,20 @@ export const deleteNote = mutation({
     }
 })
 
+export const updateContent = mutation({
+    args: {
+        id: v.id("documents"),
+        content: v.string()
+    },
+    handler: async (ctx, args) => {
+        const identity = await ctx.auth.getUserIdentity()
+        if(!identity){
+            throw new Error("Unauthorized")
+        }
 
+        await ctx.db.patch(args.id, {
+            content: args.content
+        })
+    }
+})
 

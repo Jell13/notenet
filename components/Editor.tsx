@@ -1,24 +1,51 @@
 'use client'
 
+import { api } from '@convex/_generated/api'
+import { Id } from '@convex/_generated/dataModel'
 import { useEditor, EditorContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
-import React from 'react'
+import { useMutation, useQuery } from 'convex/react'
+import React, { useEffect, useState } from 'react'
+import Loader from './Loader'
 
 interface EditorProps{
-  onChange: (value: string) => void;
-  initialContent?: string;
+  id: Id<"documents">;
 }
 
-const Editor = ({onChange, initialContent}: EditorProps) => {
+const Editor = ({id: noteId}: EditorProps) => {
+
+  const[text, setText] = React.useState<string | null>('')
+
+  const updateNote = useMutation(api.documents.updateContent)
+  const getContent = useQuery(api.documents.getNoteContent, {id: noteId})
+
+  useEffect(() => {
+    if (getContent!== undefined && getContent!== null) {
+      const content = getContent
+      setText(content)
+      console.log("it works")
+    }
+  }, [getContent])
+  // if(getContent){
+  //   setContent(getContent)
+  // }
 
   const editor = useEditor({
     extensions: [
       StarterKit
     ],
-    content: initialContent ? initialContent : '<p>Hello World! 🌎️</p>'
+    content: text,
+    onUpdate: ({editor}) => {
+      const contentString = editor.getHTML()
+      setText(contentString)
+      updateNote({
+        id: noteId, content: contentString
+      })
+    }
   })
+
   return (
-    <EditorContent onChange={() => onChange} editor={editor} />
+    <EditorContent editor={editor}/>
   )
 }
 

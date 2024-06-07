@@ -47,12 +47,16 @@ const CreateNoteDialog = (props: Props) => {
             <form onSubmit={handleSubmit}>
               <Input placeholder='Name...' value={input} onChange={(e) => setInput(e.target.value)}/>
               <div className='mt-4 flex gap-2'>
-                <Button type='reset' variant={"secondary"}>
-                  Cancel
-                </Button>
-                <Button type='submit' className='bg-green-600'>
-                  Create
-                </Button>
+                <DialogTrigger>
+                  <Button type='reset' variant={"secondary"}>
+                    Cancel
+                  </Button>
+                </DialogTrigger>
+                <DialogTrigger>
+                  <Button type='submit' className='bg-green-600'>
+                    Create
+                  </Button>
+                </DialogTrigger>
               </div>
             </form>
         </DialogContent>

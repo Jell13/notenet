@@ -10,7 +10,7 @@ import { useMutation, useQuery } from 'convex/react'
 import { ArrowLeft } from 'lucide-react'
 import Link from 'next/link'
 import { redirect, useRouter } from 'next/navigation'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { toast } from 'sonner'
 
 type Props = {
@@ -23,11 +23,9 @@ const NotebookPage = ({params: {noteId}}: Props) => {
 
   const{user} = useUser()
   const router = useRouter()
-  const getNote = useQuery(api.documents.getNoteInfo,{
-    id: noteId
-  })
-
+  const getNote = useQuery(api.documents.getNoteInfo,{id: noteId})
   const deleteNote = useMutation(api.documents.deleteNote)
+
 
   const handleClick = () => {
 
@@ -62,7 +60,7 @@ const NotebookPage = ({params: {noteId}}: Props) => {
               <DialogContent>
                 <DialogHeader>
                   <DialogTitle>
-                    Are you sure you want to delete this note?
+                    Are you sure you want to delete <span className='text-green-600'>{getNote?.title}</span> ?
                   </DialogTitle>
                   <DialogDescription>
                     This action can not be reverted and all the content of this note will be erased
@@ -79,7 +77,7 @@ const NotebookPage = ({params: {noteId}}: Props) => {
         </div>
         <div className='h-4'/>
         <div className='border-stone-200 shadow-xl border rounded-lg px-16 py-8 w-full'>
-          <Editor onChange={() => {}} initialContent={getNote?.content}/>
+          <Editor id={noteId}/>
         </div>
       </div>
     </div>

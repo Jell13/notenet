@@ -11,7 +11,7 @@ const layout = ({children}:{children : React.ReactNode}) => {
     const {isAuthenticated, isLoading} = useConvexAuth()
 
   return (
-    <div>
+    <div suppressHydrationWarning>
       <AuthLoading>
         <Loader/>
       </AuthLoading>
