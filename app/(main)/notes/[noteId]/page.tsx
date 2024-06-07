@@ -25,7 +25,7 @@ const NotebookPage = ({params: {noteId}}: Props) => {
   const router = useRouter()
   const getNote = useQuery(api.documents.getNoteInfo,{id: noteId})
   const deleteNote = useMutation(api.documents.deleteNote)
-
+  const updateNote = useMutation(api.documents.updateContent)
 
   const handleClick = () => {
 
@@ -35,6 +35,13 @@ const NotebookPage = ({params: {noteId}}: Props) => {
       loading: "Deleting Note",
       success: "Note Deleted",
       error: "Note was not deleted"
+    })
+  }
+
+  const onChange = (content:string) => {
+    updateNote({
+      id: noteId,
+      content
     })
   }
 
@@ -77,7 +84,7 @@ const NotebookPage = ({params: {noteId}}: Props) => {
         </div>
         <div className='h-4'/>
         <div className='border-stone-200 shadow-xl border rounded-lg px-16 py-8 w-full'>
-          <Editor/>
+          <Editor id={noteId}/>
         </div>
       </div>
     </div>
