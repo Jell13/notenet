@@ -6,6 +6,7 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { useMutation, useQuery } from 'convex/react'
 import React, { useEffect, useState } from 'react'
+import useDebounceState from '@hooks/useDebounceState';
 
 interface EditorProps{
   id: Id<"documents">;
@@ -17,6 +18,7 @@ const Editor = ({id: noteId}: EditorProps) => {
   const updateNote = useMutation(api.documents.updateContent)
 
   const [value, setValue] = useState("");
+  const debouncedValue = useDebounceState(value, 1000);
 
   useEffect(() => {
     if (note?.content) {
@@ -28,17 +30,29 @@ const Editor = ({id: noteId}: EditorProps) => {
   const handleChange = async (content: string) => {
     setValue(content);
   };
+
+  useEffect(() => {
+    const saveNote = async () => {
+      if (noteId && debouncedValue !== note?.content) {
+        await updateNote({
+          id: noteId,
+          content: debouncedValue,
+        });
+      }
+    };
+    saveNote();
+  }, [debouncedValue, noteId, updateNote, note?.content]);
   
 
   // Update backend when the editor loses focus
-  const handleBlur = async () => {
-    if (noteId) {
-      await updateNote({
-        id: noteId,
-        content: value,
-      });
-    }
-  };
+  // const handleBlur = async () => {
+  //   if (noteId) {
+  //     await updateNote({
+  //       id: noteId,
+  //       content: value,
+  //     });
+  //   }
+  // };
 
   const toolbarOptions = [
     ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
@@ -72,7 +86,7 @@ const Editor = ({id: noteId}: EditorProps) => {
         modules={module}
         value={value}
         onChange={handleChange}
-        onBlur={handleBlur}
+        // onBlur={handleBlur}
         theme="snow"
         className="h-full"
       />

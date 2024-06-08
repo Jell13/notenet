@@ -8,8 +8,6 @@ type Props = {}
 
 const layout = ({children}:{children : React.ReactNode}) => {
 
-    const {isAuthenticated, isLoading} = useConvexAuth()
-
   return (
     <div suppressHydrationWarning>
       <AuthLoading>
