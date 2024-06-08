@@ -1,12 +1,13 @@
 'use client'
-
+  
 import { api } from '@convex/_generated/api'
 import { Id } from '@convex/_generated/dataModel'
 import { useEditor, EditorContent } from '@tiptap/react'
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.bubble.css";
 import StarterKit from '@tiptap/starter-kit'
 import { useMutation, useQuery } from 'convex/react'
 import React, { useEffect, useState } from 'react'
-import Loader from './Loader'
 
 interface EditorProps{
   id: Id<"documents">;
@@ -14,36 +15,65 @@ interface EditorProps{
 
 const Editor = ({id: noteId}: EditorProps) => {
 
-  const[text, setText] = React.useState<string | null>('')
-
+  const note = useQuery(api.documents.getNoteInfo, {id: noteId})
   const updateNote = useMutation(api.documents.updateContent)
-  const getContent = useQuery(api.documents.getNoteContent, {id: noteId})
+
+  // const [value, setValue] = useState(initialContent);
+  const [value, setValue] = useState("<p>Write something here</p>");
 
   useEffect(() => {
-    if (getContent!== undefined && getContent!== null) {
-      const content = getContent
-      setText(content)
-      console.log("it works")
+    if (note?.content) {
+      setValue(note?.content);
     }
-  }, [getContent])
+  }, [note]);
 
-  const editor = useEditor({
-    extensions: [
-      StarterKit
-    ],
-    content: text,
-    onUpdate: ({editor}) => {
-      const contentString = editor.getText()
-      setText(contentString)
-      updateNote({
-        id: noteId, content: contentString
-      })
+  // Handle content change and update backend
+  const handleChange = (content: string) => {
+    setValue(content);
+  };
+  
+
+  // Update backend when the editor loses focus
+  const handleBlur = async () => {
+    if (noteId) {
+      await updateNote({
+        id: noteId,
+        content: value,
+      });
     }
-  })
+  };
 
-  return (
-    <EditorContent editor={editor}/>
+  // const editor = useEditor({
+  //   extensions: [
+  //     StarterKit
+  //   ],
+  //   content: initialContent,
+  //   onUpdate: ({editor}) => {
+  //     const contentString = editor.getText()
+  //     onChange(contentString)
+  //   }
+  // })
+  // useEffect(() => {
+  //   setValue(initialContent as string)
+  // },[initialContent])
+
+
+  // return (
+  //   <>
+  //     <EditorContent editor={editor} content={value}/>
+  //   </>
+  // )
+
+  return(
+    <ReactQuill
+          value={value}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          theme="bubble"
+          className="h-full"
+        />
   )
 }
 
 export default Editor
+
