@@ -2,10 +2,8 @@
   
 import { api } from '@convex/_generated/api'
 import { Id } from '@convex/_generated/dataModel'
-import { useEditor, EditorContent } from '@tiptap/react'
 import ReactQuill from "react-quill";
-import "react-quill/dist/quill.bubble.css";
-import StarterKit from '@tiptap/starter-kit'
+import "react-quill/dist/quill.snow.css";
 import { useMutation, useQuery } from 'convex/react'
 import React, { useEffect, useState } from 'react'
 
@@ -18,8 +16,7 @@ const Editor = ({id: noteId}: EditorProps) => {
   const note = useQuery(api.documents.getNoteInfo, {id: noteId})
   const updateNote = useMutation(api.documents.updateContent)
 
-  // const [value, setValue] = useState(initialContent);
-  const [value, setValue] = useState("<p>Write something here</p>");
+  const [value, setValue] = useState("");
 
   useEffect(() => {
     if (note?.content) {
@@ -28,7 +25,7 @@ const Editor = ({id: noteId}: EditorProps) => {
   }, [note]);
 
   // Handle content change and update backend
-  const handleChange = (content: string) => {
+  const handleChange = async (content: string) => {
     setValue(content);
   };
   
@@ -43,35 +40,43 @@ const Editor = ({id: noteId}: EditorProps) => {
     }
   };
 
-  // const editor = useEditor({
-  //   extensions: [
-  //     StarterKit
-  //   ],
-  //   content: initialContent,
-  //   onUpdate: ({editor}) => {
-  //     const contentString = editor.getText()
-  //     onChange(contentString)
-  //   }
-  // })
-  // useEffect(() => {
-  //   setValue(initialContent as string)
-  // },[initialContent])
+  const toolbarOptions = [
+    ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+    ['blockquote', 'code-block'],
+    ['link', 'image', 'video', 'formula'],
+  
+    [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+    [{ 'list': 'ordered'}, { 'list': 'bullet' }, { 'list': 'check' }],
+    [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
+    [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
+    [{ 'direction': 'rtl' }],                         // text direction
+  
+    [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+    [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+  
+    [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+    [{ 'font': [] }],
+    [{ 'align': [] }],
+  
+    ['clean']                                         // remove formatting button
+  ];
 
-
-  // return (
-  //   <>
-  //     <EditorContent editor={editor} content={value}/>
-  //   </>
-  // )
+  const module = {
+    toolbar: toolbarOptions 
+  }
 
   return(
-    <ReactQuill
-          value={value}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          theme="bubble"
-          className="h-full"
-        />
+    <>
+      <ReactQuill
+        placeholder='Start your notes here..'
+        modules={module}
+        value={value}
+        onChange={handleChange}
+        onBlur={handleBlur}
+        theme="snow"
+        className="h-full"
+      />
+    </>
   )
 }
 

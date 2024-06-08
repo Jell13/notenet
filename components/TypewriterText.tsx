@@ -16,7 +16,8 @@ const TypewriterText = (props:Props) => {
           .typeString("Take notes and have fun.")
           .pauseFor(1000)
           .deleteAll()
-          .typeString("Learn instead of studying")
+          .typeString("Learn instead of study.")
+          .pauseFor(1000)
           .start();
       }}
     />
