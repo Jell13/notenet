@@ -109,6 +109,7 @@ interface EditorProps{
 
 const Tiptap = ({content, onChange} : EditorProps) => {
 
+
   const[text, setText] = useState(content)
   const editor = useEditor({
     extensions: [
@@ -120,7 +121,7 @@ const Tiptap = ({content, onChange} : EditorProps) => {
     },
     onUpdate: () => {
       setText(editor?.getText() || "")
-    }
+    },
   })
 
   return (

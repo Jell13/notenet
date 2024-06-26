@@ -57,7 +57,8 @@ export const getNoteContent = query({
 
 export const createNotebook = mutation({
     args:{
-        title: v.string()
+        title: v.string(),
+        content: v.string()
     },
     handler: async (ctx, args) => {
         const identity = await ctx.auth.getUserIdentity()
@@ -69,7 +70,8 @@ export const createNotebook = mutation({
         
         const newNotebook = await ctx.db.insert("documents",{
             title: args.title,
-            userId: userId
+            userId: userId,
+            content: args.content
         })
     }
 })
