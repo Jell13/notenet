@@ -8,7 +8,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "NoteNet",
-  description: "Note taking app with NextJs 14, Convex, ClerkJs, and react-quill",
+  description: "Note taking app with NextJs 14, Convex, ClerkJs, and TipTap Editor",
 };
 
 export default function RootLayout({
