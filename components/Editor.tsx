@@ -120,7 +120,7 @@ const Tiptap = ({content, onChange} : EditorProps) => {
       onChange(text)
     },
     onUpdate: () => {
-      setText(editor?.getText() || "")
+      setText(editor?.getHTML() || "")
     },
   })
 
