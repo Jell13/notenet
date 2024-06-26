@@ -1,6 +1,7 @@
 "use client"
 
 import { useUser } from '@clerk/clerk-react'
+import Tiptap from '@components/Editor'
 import Editor from '@components/Editor'
 import { Button } from '@components/ui/button'
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@components/ui/dialog'
@@ -38,8 +39,8 @@ const NotebookPage = ({params: {noteId}}: Props) => {
     })
   }
 
-  const onChange = (content:string) => {
-    updateNote({
+  const onChange = async (content:string) => {
+    await updateNote({
       id: noteId,
       content
     })
@@ -84,7 +85,8 @@ const NotebookPage = ({params: {noteId}}: Props) => {
         </div>
         <div className='h-4'/>
         <div className='border-stone-200 shadow-xl border rounded-lg px-16 py-8 w-full'>
-          <Editor id={noteId}/>
+          {/* <Editor id={noteId}/> */}
+          {getNote?.content && <Tiptap content={getNote?.content} onChange={onChange}/>}
         </div>
       </div>
     </div>
