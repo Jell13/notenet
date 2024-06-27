@@ -16,12 +16,10 @@ const CreateNoteDialog = (props: Props) => {
   const createNotebook = useMutation(api.documents.createNotebook)
 
   const[title, setTitle] = React.useState("")
-  const[content, setContent] = React.useState("")
   const handleSubmit = (e :React.FormEvent) => {
     e.preventDefault()
     const create = createNotebook({
-      title: title,
-      content: content
+      title: title
     })
 
     toast.promise(create,{
@@ -47,10 +45,7 @@ const CreateNoteDialog = (props: Props) => {
                 </DialogDescription>
             </DialogHeader>
             <form onSubmit={handleSubmit}>
-              <div className='flex flex-col gap-2'>
-                <Input placeholder='Name...' value={title} onChange={(e) => setTitle(e.target.value)}/>
-                <Input placeholder='Initial Content...' value={content} onChange={(e) => setContent(e.target.value)}/>
-              </div>
+              <Input placeholder='Name...' value={title} onChange={(e) => setTitle(e.target.value)}/>
               <div className='mt-4 flex gap-2'>
                 <DialogTrigger>
                   <Button type='reset' variant={"secondary"}>

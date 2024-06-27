@@ -40,10 +40,16 @@ const NotebookPage = ({params: {noteId}}: Props) => {
   }
 
   const onChange = async (content:string) => {
-    await updateNote({
-      id: noteId,
-      content
-    })
+
+      const update = updateNote({
+        id: noteId,
+        content: content
+      })
+
+      toast.promise(update,{
+        success: "Note saved",
+        error: "Failed to save note"
+      })
   }
 
   return (
