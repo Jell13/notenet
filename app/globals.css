@@ -89,25 +89,25 @@
   }
 
   .editor-content h1 {
-    @apply text-3xl font-bold;
+    @apply text-6xl font-bold;
   }
 
   .editor-content h2 {
-    @apply text-2xl font-semibold;
+    @apply text-5xl font-semibold;
   }
 
   .editor-content h3 {
-    @apply text-xl font-semibold;
+    @apply text-4xl font-semibold;
   }
 
   .editor-content h4 {
-    @apply text-lg font-semibold;
+    @apply text-3xl font-semibold;
   }
 
   .editor-content h5 {
-    @apply text-md font-semibold;
+    @apply text-2xl font-semibold;
   }
 
   .editor-content h6 {
-    @apply text-sm font-semibold;
+    @apply text-xl font-semibold;
   }
