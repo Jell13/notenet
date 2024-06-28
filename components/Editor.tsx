@@ -4,7 +4,7 @@ import { useEditor, EditorContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import Placeholder from '@tiptap/extension-placeholder'
 import { useState } from 'react';
-import { Bold, Heading1, Heading2, Italic, Strikethrough } from 'lucide-react';
+import { Bold, Heading1, Heading2, Heading3, Heading4, Heading5, Heading6, Italic, Strikethrough } from 'lucide-react';
 
 interface EditorProps{
   content: string;
@@ -75,6 +75,30 @@ const Tiptap = ({content, onChange} : EditorProps) => {
               className={editor.isActive("heading", { level: 2 }) ? "is-active" : ""}
             >
               <Heading2 className="w-6 h-6" />
+            </button>
+            <button
+              onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
+              className={editor.isActive("heading", { level: 3 }) ? "is-active" : ""}
+            >
+              <Heading3 className="w-6 h-6" />
+            </button>
+            <button
+              onClick={() => editor.chain().focus().toggleHeading({ level: 4 }).run()}
+              className={editor.isActive("heading", { level: 4 }) ? "is-active" : ""}
+            >
+              <Heading4 className="w-6 h-6" />
+            </button>
+            <button
+              onClick={() => editor.chain().focus().toggleHeading({ level: 5 }).run()}
+              className={editor.isActive("heading", { level: 5 }) ? "is-active" : ""}
+            >
+              <Heading5 className="w-6 h-6" />
+            </button>
+            <button
+              onClick={() => editor.chain().focus().toggleHeading({ level: 6 }).run()}
+              className={editor.isActive("heading", { level: 6 }) ? "is-active" : ""}
+            >
+              <Heading6 className="w-6 h-6" />
             </button>
           </div>}
         
