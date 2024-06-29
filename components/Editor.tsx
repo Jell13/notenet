@@ -36,8 +36,7 @@ const Tiptap = ({content, onChange} : EditorProps) => {
 
   return (
     <>
-      <div className='w-full flex justify-between mb-3'>
-        {/* {editor && <TipTapMenuBar editor={editor} />} */}
+      <div className='w-full flex sm:flex-row justify-between mb-3 flex-col'>
           {editor && 
           <div className='flex gap-2'>
             <button
@@ -76,7 +75,7 @@ const Tiptap = ({content, onChange} : EditorProps) => {
             >
               <Heading2 className="w-6 h-6" />
             </button>
-            <button
+            {/* <button
               onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
               className={editor.isActive("heading", { level: 3 }) ? "is-active" : ""}
             >
@@ -99,7 +98,7 @@ const Tiptap = ({content, onChange} : EditorProps) => {
               className={editor.isActive("heading", { level: 6 }) ? "is-active" : ""}
             >
               <Heading6 className="w-6 h-6" />
-            </button>
+            </button> */}
           </div>}
         
         <button className='bg-green-600 text-white p-2 rounded-lg hover:bg-green-800 duration-300' onClick={handleClick}>Save</button>
