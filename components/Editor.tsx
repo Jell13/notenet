@@ -4,7 +4,7 @@ import { useEditor, EditorContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import Placeholder from '@tiptap/extension-placeholder'
 import { useState } from 'react';
-import { Bold, Heading1, Heading2, Heading3, Heading4, Heading5, Heading6, Italic, Strikethrough } from 'lucide-react';
+import { Bold, Heading1, Heading2, Heading3, Heading4, Heading5, Heading6, Italic, List, ListOrdered, Strikethrough } from 'lucide-react';
 
 interface EditorProps{
   content: string;
@@ -21,9 +21,7 @@ const Tiptap = ({content, onChange} : EditorProps) => {
   }
   const editor = useEditor({
     extensions: [
-      StarterKit, Placeholder.configure({
-        placeholder: "Write something here..."
-      })
+      StarterKit
     ],
     content: text,
     // onBlur: () => {
@@ -99,6 +97,18 @@ const Tiptap = ({content, onChange} : EditorProps) => {
             >
               <Heading6 className="w-6 h-6" />
             </button> */}
+            <button
+              onClick={() => editor.chain().focus().toggleBulletList().run()}
+              className={editor.isActive("bulletList") ? "is-active" : ""}
+            >
+              <List className="w-6 h-6" />
+            </button>
+            <button
+              onClick={() => editor.chain().focus().toggleOrderedList().run()}
+              className={editor.isActive("orderedList") ? "is-active" : ""}
+            >
+              <ListOrdered className="w-6 h-6" />
+            </button>
           </div>}
         
         <button className='bg-green-600 text-white p-2 rounded-lg hover:bg-green-800 duration-300' onClick={handleClick}>Save</button>
