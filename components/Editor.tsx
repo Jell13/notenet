@@ -36,7 +36,7 @@ const Tiptap = ({content, onChange} : EditorProps) => {
 
   return (
     <>
-      <div className='w-full flex sm:flex-row justify-between mb-3 flex-col'>
+      <div className='w-full flex sm:flex-row justify-between mb-3 flex-col gap-3'>
           {editor && 
           <div className='flex gap-2'>
             <button
