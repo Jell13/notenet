@@ -18,9 +18,9 @@ export default function Home() {
   return (
     <div className="w-screen h-screen grainy">
       <div className="w-full h-full flex flex-col justify-center items-center">
-        <Image src={logo} width={300} height={300} alt="logo"/>
-        <h1 className="text-6xl font-bold">NoteNet</h1>
-        <h1 className="text-5xl text-center font-bold mt-10">
+        <Image src={logo} width={150} height={150} alt="logo"/>
+        <h1 className="text-5xl font-bold">NoteNet</h1>
+        <h1 className="text-4xl text-center font-bold mt-10">
           Enhance your <span className="text-green-600">note taking</span> experience
         </h1>
         <h2 className="font-semibold mt-3 text-3xl"><TypewriterText/></h2>
