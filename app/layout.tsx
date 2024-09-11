@@ -4,6 +4,7 @@ import {Toaster} from 'sonner'
 import "./globals.css";
 import ConvexClientProvider from "@providers/ConvexClientProvider";
 
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {

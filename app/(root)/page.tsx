@@ -6,7 +6,10 @@ import TypewriterText from "@components/TypewriterText";
 import { Button } from "@components/ui/button";
 import { useConvexAuth } from "convex/react";
 import { ArrowRight } from "lucide-react";
+import Image from "next/image";
+import logo from "../../public/logo.png"
 import Link from "next/link";
+
 
 export default function Home() {
 
@@ -15,7 +18,9 @@ export default function Home() {
   return (
     <div className="w-screen h-screen grainy">
       <div className="w-full h-full flex flex-col justify-center items-center">
-        <h1 className="text-6xl text-center font-bold">
+        <Image src={logo} width={300} height={300} alt="logo"/>
+        <h1 className="text-6xl font-bold">NoteNet</h1>
+        <h1 className="text-5xl text-center font-bold mt-10">
           Enhance your <span className="text-green-600">note taking</span> experience
         </h1>
         <h2 className="font-semibold mt-3 text-3xl"><TypewriterText/></h2>
