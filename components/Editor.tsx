@@ -111,9 +111,10 @@ const Tiptap = ({content, onChange} : EditorProps) => {
             </button>
           </div>}
         
-        <button className='bg-green-600 text-white p-2 rounded-lg hover:bg-green-800 duration-300' onClick={handleClick}>Save</button>
+        {/* <button className='bg-green-600 text-white p-2 rounded-lg hover:bg-green-800 duration-300' onClick={handleClick}>Save</button> */}
       </div>
       <EditorContent className='editor-content' editor={editor} />
+      <button className='bg-green-600 text-white p-2 rounded-lg mt-10 hover:bg-green-800 duration-300 w-full' onClick={handleClick}>Save</button>
     </>
   )
 }
